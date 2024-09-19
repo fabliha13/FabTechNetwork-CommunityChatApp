@@ -1,5 +1,6 @@
 # FabTechNet-CommunityChatApp
 FabTechNet: A web platform for tech enthusiasts to connect, collaborate, and learn together. Create rooms based on interests, engage in real-time discussions, and find project partners.
+Website link: https://fabtechnet-43b939fb3f54.herokuapp.com/
 
 Here’s the updated Markdown content, including the new process for creating a superuser with a custom user model, and a warning block for clarity:
 
@@ -125,3 +126,18 @@ This command will regenerate the `requirements.txt` file with the latest version
 ```
 
 This Markdown content now includes detailed instructions for creating a superuser with a custom user model and other installation steps.
+
+<!-- Make Changes Locally:
+
+Open your project in VS Code or your preferred editor.
+Make the necessary changes to your code (HTML, CSS, Python, etc.).
+Commit Changes:
+
+Use Git to add, commit, and push your changes. For example:
+git add .
+git commit -m "Describe your changes"
+
+Push to Heroku:
+
+Push your changes to Heroku using Git:
+git push heroku main -->
