@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Room, Topic, Message, User
 from .forms import RoomForm, UserForm, MyUserCreationForm
 from django.views import View
-from django.contrib.auth.forms import AuthenticationForm
+
 
 
 # Create your views here.
@@ -23,57 +23,57 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from django.http import HttpResponse
 
-# def loginPage(request):
-#     page ='login'
-#     if request.user.is_authenticated:
-#         return redirect('home')
-    
-#     if request.method == "POST":
-#         email = request.POST.get('email').lower()
-#         password = request.POST.get('password')
-
-#         try:
-#             user = User.objects.get(email=email)
-#         except:
-#             messages.error(request, 'User does not exist')
-        
-#         user = authenticate(request, email=email, password=password )
-
-#         if user is not None:
-#             login(request, user)
-#             return redirect('home')
-        
-#         else:
-#             messages.error(request, 'Username OR Password does not exist')
-
-
-
-
-#     context={'page':page}
-#     return render(request, 'base/login_register.html',context)
-
 def loginPage(request):
-    page = 'login'
+    page ='login'
     if request.user.is_authenticated:
         return redirect('home')
-
+    
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
+        email = request.POST.get('email').lower()
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(email=email)
+        except:
+            messages.error(request, 'User does not exist')
+        
+        user = authenticate(request, email=email, password=password )
+
+        if user is not None:
             login(request, user)
             return redirect('home')
+        
         else:
-            # Custom error message
-            if not form.get_user():
-                messages.error(request, "Couldn't find any account with that email. Please sign up.")
-            else:
-                messages.error(request, "Username or password is incorrect.")
-    else:
-        form = AuthenticationForm()
+            messages.error(request, 'Username OR Password does not exist')
 
-    context = {'form': form, 'page': page}
-    return render(request, 'base/login_register.html', context)
+
+
+
+    context={'page':page}
+    return render(request, 'base/login_register.html',context)
+
+# def loginPage(request):
+#     page = 'login'
+#     if request.user.is_authenticated:
+#         return redirect('home')
+
+#     if request.method == "POST":
+#         form = AuthenticationForm(request, data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request, user)
+#             return redirect('home')
+#         else:
+#             # Custom error message
+#             if not form.get_user():
+#                 messages.error(request, "Couldn't find any account with that email. Please sign up.")
+#             else:
+#                 messages.error(request, "Username or password is incorrect.")
+#     else:
+#         form = AuthenticationForm()
+
+#     context = {'form': form, 'page': page}
+#     return render(request, 'base/login_register.html', context)
 
 
 def logoutUser(request):
