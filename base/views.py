@@ -113,19 +113,26 @@ def home(request):
     context = {'rooms' : rooms, 'topics' : topics, 'room_count' : room_count, 'room_messages': room_messages}
     return render(request, 'base/home.html', context)
 
+
+@login_required(login_url='/login')
 def room(request,pk):
     room = Room.objects.get(id=pk)
     # room_messages = room.message_set.all()
     room_messages = room.message_set.all().order_by('created')
     participants = room.participants.all()
     if request.method == "POST":
-        message = Message.objects.create(
+        # if not request.user.is_authenticated:
+        #     # Redirect or show a message that they need to log in
+        #     return redirect('login')
+        # else:
+            message = Message.objects.create(
             user = request.user,
             room = room,
             body = request.POST.get('body')
         )
-        room.participants.add(request.user)
-        return redirect('room', pk=room.id)
+            room.participants.add(request.user)
+            return redirect('room', pk=room.id)
+
 
 
 
@@ -233,3 +240,78 @@ def activityPage(request):
     room_messages = Message.objects.all()
     return render(request, 'base/activity.html', {'room_messages' : room_messages})
 
+# from django.shortcuts import render, redirect, get_object_or_404
+# from django.http import HttpResponse
+# from django.contrib import messages
+# from django.contrib.auth.decorators import login_required
+# from django.db.models import Q
+# from django.contrib.auth import authenticate, login, logout
+# from .models import Room, Topic, Message, User
+# from .forms import RoomForm, UserForm, MyUserCreationForm
+
+# def loginPage(request):
+#     if request.user.is_authenticated:
+#         return redirect('home')
+
+#     if request.method == "POST":
+#         email = request.POST.get('email').lower()
+#         password = request.POST.get('password')
+
+#         try:
+#             user = User.objects.get(email=email)
+#         except User.DoesNotExist:
+#             messages.error(request, 'User does not exist')
+#             return render(request, 'base/login_register.html', {'page': 'login'})
+
+#         user = authenticate(request, email=email, password=password)
+
+#         if user is not None:
+#             login(request, user)
+#             return redirect('home')
+#         else:
+#             messages.error(request, 'Username or Password is incorrect')
+
+#     return render(request, 'base/login_register.html', {'page': 'login'})
+
+# def room(request, pk):
+#     room = get_object_or_404(Room, id=pk)
+#     room_messages = room.message_set.all().order_by('created')
+#     participants = room.participants.all()
+
+#     if request.method == "POST":
+#         if not request.user.is_authenticated:
+#             return redirect('login')
+
+#         message = Message.objects.create(
+#             user=request.user,
+#             room=room,
+#             body=request.POST.get('body')
+#         )
+#         room.participants.add(request.user)
+#         return redirect('room', pk=room.id)
+
+#     context = {'room': room, 'room_messages': room_messages, 'participants': participants}
+#     return render(request, 'base/room.html', context)
+
+# @login_required(login_url='login')
+# def createRoom(request):
+#     form = RoomForm()
+#     topics = Topic.objects.all()
+
+#     if request.method == 'POST':
+#         topic_name = request.POST.get('topic')
+#         topic, created = Topic.objects.get_or_create(name=topic_name)
+
+#         Room.objects.create(
+#             host=request.user,
+#             topic=topic,
+#             name=request.POST.get('name'),
+#             description=request.POST.get('description'),
+#         )
+
+#         return redirect('home')
+
+#     context = {'form': form, 'topics': topics}
+#     return render(request, 'base/room_form.html', context)
+
+# # Ensure to apply similar adjustments to other functions as needed.
