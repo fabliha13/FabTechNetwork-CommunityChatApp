@@ -70,15 +70,15 @@
           </div>
           
             <div class="form__action">
-              {% if room %}
+              <!-- {% if room %}
                   <a class="btn btn--dark" href="{% url 'room' room.id %}">Cancel</a>
               {% else %}
                   <a class="btn btn--dark" href="{% url 'home' %}">Cancel</a>
               {% endif %}
-                <button class="btn btn--main" type="submit">Submit</button>
+                <button class="btn btn--main" type="submit">Submit</button> -->
              
-              <!-- <a class="btn btn--dark" href="{% url 'room' room.id %}">Cancel</a>
-              <button class="btn btn--main" type="submit">Submit</button> -->
+              <a class="btn btn--dark" href="{% url 'room' room.id %}">Cancel</a>
+              <button class="btn btn--main" type="submit">Submit</button>
             </div>
           </form>
         </div>
