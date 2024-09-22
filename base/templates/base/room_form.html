@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="layout__body">
-          <form class="form" action="" method="POST">
+          <form class="form" action="{% url 'create_room' %}" method="POST">
             {% csrf_token %}
             <div class="form__group">
               <label for="room_topic">Enter a Topic</label>
@@ -26,7 +26,7 @@
               <datalist id="topic-list">
                 <select id="room_topic">
                   {% for topic in topics %}
-                  <option value="{{topic.name}}">{{topic.name}}</option>
+                    <option value="{{topic.name}}">{{topic.name}}</option>
                   {% endfor %}
 
                 </select>
@@ -65,10 +65,20 @@
             </div> -->
 
 
-
             <div class="form__action">
-              <a class="btn btn--dark" href="{% url 'room' room.id %}">Cancel</a>
-              <button class="btn btn--main" type="submit">Submit</button>
+              
+          </div>
+          
+            <div class="form__action">
+              {% if room %}
+                  <a class="btn btn--dark" href="{% url 'room' room.id %}">Cancel</a>
+              {% else %}
+                  <a class="btn btn--dark" href="{% url 'rooms_list' %}">Cancel</a>
+              {% endif %}
+                <button class="btn btn--main" type="submit">Submit</button>
+             
+              <!-- <a class="btn btn--dark" href="{% url 'room' room.id %}">Cancel</a>
+              <button class="btn btn--main" type="submit">Submit</button> -->
             </div>
           </form>
         </div>
