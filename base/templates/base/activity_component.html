@@ -10,7 +10,7 @@
             <img src="{{message.user.avatar.url}}" />
           </div>
           <p>
-            @{{message.user}}
+            @{{message.user.username}}
             <span>{{message.created|timesince}}</span>
           </p>
         </a>
@@ -32,7 +32,7 @@
       <div class="activities__boxContent">
         <p>replied to post “<a href="{% url 'room' message.room.id %}">{{message.room}}</a>”</p>
         <div class="activities__boxRoomContent">
-          {{message.body}}
+          {{message.body|truncatechars:90}}
         </div>
       </div>
     </div>
