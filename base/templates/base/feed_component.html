@@ -2,8 +2,10 @@
 <div class="roomListRoom">
     <div class="roomListRoom__header">
       <a href="{% url 'user-profile' room.host.id %}" class="roomListRoom__author">
+        {% load static %}
         <div class="avatar avatar--small">
-          <img src="{{room.host.avatar.url}}" />
+          <!-- <img src="{{room.host.avatar.url}}" /> -->
+          <img src="{% static 'images/avatar.png' %}" /> 
         </div>
         <span>@{{room.host.username}}</span>
       </a>
