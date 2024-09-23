@@ -7,7 +7,8 @@
       <div class="activities__boxHeader roomListRoom__header">
         <a href="{% url 'user-profile' message.user.id %}" class="roomListRoom__author">
           <div class="avatar avatar--small">
-            <img src="{{message.user.avatar.url}}" />
+            <!-- <img src="{{message.user.avatar.url}}" /> -->
+            <img src="{{% static 'images/avatar.png' %}}" /> 
           </div>
           <p>
             @{{message.user.username}}
@@ -32,7 +33,7 @@
       <div class="activities__boxContent">
         <p>replied to post “<a href="{% url 'room' message.room.id %}">{{message.room}}</a>”</p>
         <div class="activities__boxRoomContent">
-          {{message.body|truncatechars:90}}
+          {{message.body|truncatechars:50}}
         </div>
       </div>
     </div>
